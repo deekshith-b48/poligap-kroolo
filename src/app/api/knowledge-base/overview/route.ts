@@ -125,7 +125,7 @@ export async function GET(request: NextRequest) {
     // Map into final object with default empty groups
     const groupedData: Record<
       "youtube" | "link" | "other",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       
       { totalCount: number; totalPages: number; files: any[] }
     > = {
       youtube: { totalCount: 0, totalPages: 0, files: [] },

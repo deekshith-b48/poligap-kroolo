@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
     
     // Build query
-    let query: any = {};
+    const query: any = {};
     
     if (category && category !== 'all') {
       query.category = category;

@@ -76,24 +76,40 @@ export const useSearch = (query: string) => {
   const external_user_id = userData?.userId || "";
   // Get Google Drive account_id from the integration store
   const integrationStore = useIntegrationStore.getState();
-  let account_ids = [...integrationStore.connectedAccountIds];
-  let apps = [...integrationStore.connectedIntegrations.map((i) => i.name)];
+  
+  // Wrap arrays in useMemo to prevent re-creation on every render
+  const account_ids = useMemo(() => {
+    const ids = [...integrationStore.connectedAccountIds];
+    // Add internal knowledge management if enabled
+    if (integrationStore.isEnabled) {
+      ids.push(external_user_id + "_internal");
+      ids.push(external_user_id + "_site");
+    }
+    return ids;
+  }, [integrationStore.connectedAccountIds, integrationStore.isEnabled, external_user_id]);
 
-  // Add internal knowledge management if enabled
-  const isEnabled = integrationStore.isEnabled;
-  if (isEnabled) {
-    account_ids.push(external_user_id + "_internal");
-    account_ids.push(external_user_id + "_site");
-    apps.push("knowledge_management");
-  }
+  const apps = useMemo(() => {
+    const appsList = [...integrationStore.connectedIntegrations.map((i) => i.name)];
+    // Add internal knowledge management if enabled
+    if (integrationStore.isEnabled) {
+      appsList.push("knowledge_management");
+    }
+    return appsList;
+  }, [integrationStore.connectedIntegrations, integrationStore.isEnabled]);
 
   const userEmail = userData?.email || "";
+  const isEnabled = integrationStore.isEnabled;
+  
+  // Simple useMemo for stable references
   const stableAccounts = useMemo(
     () => account_ids,
-    [JSON.stringify(account_ids)]
+    [account_ids]
   );
 
-  const stableApps = useMemo(() => apps, [JSON.stringify(apps)]);
+  const stableApps = useMemo(
+    () => apps, 
+    [apps]
+  );
 
   return useQuery({
     queryKey: [

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useIntegrationStore } from "@/stores/integration-store";
 import { INTEGRATIONS } from "@/constants/knowledge";
 import { GMAIL_INTEGRATION } from "@/constants/gmail-integration";
@@ -18,13 +18,7 @@ export default function GmailNotificationExplorer({
   const [notifications, setNotifications] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (accountId) {
-      fetchGmailNotifications();
-    }
-  }, [accountId]);
-
-  const fetchGmailNotifications = async () => {
+  const fetchGmailNotifications = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -43,7 +37,13 @@ export default function GmailNotificationExplorer({
     } finally {
       setLoading(false);
     }
-  };
+  }, [accountId]);
+
+  useEffect(() => {
+    if (accountId) {
+      fetchGmailNotifications();
+    }
+  }, [accountId, fetchGmailNotifications]);
 
   const handleRefresh = () => {
     fetchGmailNotifications();

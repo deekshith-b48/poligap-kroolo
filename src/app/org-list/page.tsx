@@ -63,7 +63,7 @@ export default function OrgListPage() {
           const data = await res.json();
           if (Array.isArray(data.data)) {
             setCompanies(
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+               
               data.data.map((company: any) => ({
                 ...company,
                 color: COLORS[Math.floor(Math.random() * COLORS.length)],

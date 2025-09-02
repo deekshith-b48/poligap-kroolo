@@ -52,11 +52,11 @@ function KnowledgePageContent() {
   const userEmail = userData?.email;
 
   // Initialize logger with context
-  const logger = new PipedreamLogger({
+  const logger = useMemo(() => new PipedreamLogger({
     userId,
     companyId,
     userEmail
-  });
+  }), [userId, companyId, userEmail]);
 
   const [token, setToken] = useState<string | null>(null);
   const [isConnecting, setIsConnecting] = useState<{ [key: string]: boolean }>(
@@ -118,7 +118,7 @@ function KnowledgePageContent() {
   });
 
   // Fetch integrations on mount and for refresh
-  async function fetchUserEnterpriseIntegration() {
+  const fetchUserEnterpriseIntegration = useCallback(async () => {
     setLoading(true);
     const integrationDetails = await getUserEnterpriseIntegration(
       userId!,
@@ -127,14 +127,9 @@ function KnowledgePageContent() {
     setIntegrations(integrationDetails.data || []);
 
     setLoading(false);
-  }
+  }, [userId, companyId]);
 
-  useEffect(() => {
-    fetchToken("initial");
-    fetchUserEnterpriseIntegration();
-  }, []);
-
-  async function fetchToken(app: string) {
+  const fetchToken = useCallback(async (app: string) => {
     setIsFetchingToken((prev) => ({ ...prev, [app]: true }));
     logger.logStep('Starting token generation', { app, userId });
 
@@ -178,7 +173,12 @@ function KnowledgePageContent() {
     } finally {
       setIsFetchingToken((prev) => ({ ...prev, [app]: false }));
     }
-  }
+  }, [userId, logger]);
+
+  useEffect(() => {
+    fetchToken("initial");
+    fetchUserEnterpriseIntegration();
+  }, [fetchToken, fetchUserEnterpriseIntegration]);
 
   async function fetchAccount(app: string) {
     try {

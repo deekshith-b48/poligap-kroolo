@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FileText, Upload, Eye, Download, AlertTriangle, CheckCircle, Clock, User, ChevronRight, ChevronLeft, Building, Users, Shield, Handshake, Award, Home, TrendingUp, Car, ShoppingCart, Truck, Crown, Network, Search, Filter, Briefcase, Globe, Heart, Zap, Wifi, Database, Code, Palette, Music, Camera, Plane, Ship, Factory, Hammer, Wrench, Cog, Book, GraduationCap, Stethoscope, Scale, Gavel, DollarSign, CreditCard, PiggyBank, Landmark, Info, FolderOpen, BookOpen, Library, Edit3, RotateCcw, Save, X, NotebookPen, FileUp } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -390,7 +390,7 @@ export default function ContractReview() {
   const openFilePicker = () => fileInputRef.current?.click();
 
   // Fetch audit logs helper and effect on template change
-  const reloadTemplateLogs = async () => {
+  const reloadTemplateLogs = useCallback(async () => {
     if (!selectedTemplate) {
       setTemplateLogs([]);
       return;
@@ -410,11 +410,11 @@ export default function ContractReview() {
     } finally {
       setLogsLoading(false);
     }
-  };
+  }, [selectedTemplate]);
 
   useEffect(() => {
     reloadTemplateLogs();
-  }, [selectedTemplate]);
+  }, [reloadTemplateLogs]);
 
   // Cleanup on unmount: clear any pending timers and reset analyzing flag
   useEffect(() => {

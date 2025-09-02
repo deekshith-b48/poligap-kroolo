@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     const objectCompanyId = new mongoose.Types.ObjectId(companyId);
 
     // Step 1: Aggregation pipeline
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const pipeline: any[] = [
       // Filter by company & active
       {

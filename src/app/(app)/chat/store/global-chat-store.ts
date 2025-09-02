@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // import krooloHttpClient from "../services/httpClient";
 // import { toastWarning } from "../components/toast";
 import { produce } from "immer";

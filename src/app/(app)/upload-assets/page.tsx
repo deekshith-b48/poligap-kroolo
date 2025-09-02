@@ -173,6 +173,7 @@ export default function UploadAssetsPage() {
 
   // Get file icon based on mime type
   const getFileIcon = (mimeType: string) => {
+    // eslint-disable-next-line jsx-a11y/alt-text
     if (mimeType.startsWith('image/')) return <Image className="h-5 w-5" />;
     if (mimeType.startsWith('video/')) return <Video className="h-5 w-5" />;
     if (mimeType.startsWith('audio/')) return <Music className="h-5 w-5" />;

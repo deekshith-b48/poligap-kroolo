@@ -38,7 +38,7 @@ type SignInFormData = z.infer<typeof signInSchema>;
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   const [apiError, setApiError] = useState<string | null>(null);
   const router = useRouter();
   const { resolvedTheme } = useTheme();

@@ -3,7 +3,7 @@
 import type React from "react";
 import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import SearchInput from "@/components/search/search-input";
 import FeedbackModal from "@/components/search/feedback-modal";
 import { Button } from "@/components/ui/button";
@@ -215,7 +215,7 @@ const SearchLandingContent: React.FC<{ onSearch: (query: string) => void }> = ({
     (s) => s.setConnectedIntegrations
   );
   const connectedAccountIds = useIntegrationStore((s) => s.connectedAccountIds);
-  async function fetchUserEnterpriseIntegration() {
+  const fetchUserEnterpriseIntegration = useCallback(async () => {
     try {
       // Check if userId and companyId are available
       if (!userId || !companyId) {
@@ -251,14 +251,14 @@ const SearchLandingContent: React.FC<{ onSearch: (query: string) => void }> = ({
       console.error("Error fetching user enterprise integration:", error);
       setConnectedIntegrations([]);
     }
-  }
+  }, [userId, companyId, setConnectedIntegrations]);
 
   useEffect(() => {
     // Only call the function if both userId and companyId are available
     if (userId && companyId) {
       fetchUserEnterpriseIntegration();
     }
-  }, [userId, companyId]);
+  }, [userId, companyId, fetchUserEnterpriseIntegration]);
 
   return (
     <>

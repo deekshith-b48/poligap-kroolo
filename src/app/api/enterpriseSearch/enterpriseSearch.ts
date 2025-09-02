@@ -359,7 +359,7 @@ export async function deleteUserIntegrationAccount(
  *   }
  * ]
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export async function importCompanies(companies: any[], token: string) {
   try {
     const companyIds = companies.map((c) => String(c._id));
@@ -525,7 +525,7 @@ export async function importCompanyDetails(
 // When User is created after the import of the company members, then for that user to actually use the enterprise, we are checking if that user is already the part of that company and have user/admin role then we are creating that user in user, member table.
 export async function addUser(
   userId: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   userDetails: any,
   companyId: string
 ) {
