@@ -63,14 +63,19 @@ export default function SsoCallbackPage() {
       const decoded: DecodedToken = jwtDecode(authInfo.accessToken);
 
       if (decoded?.login_method?.login_method === "saml_sso") {
-        const url = new URL(
-          `https://${process.env.NEXT_PUBLIC_AWS_COGNITO_DOMAIN}/oauth2/authorize`
-        );
+        // Check if required environment variables are available
+        const cognitoDomain = process.env.NEXT_PUBLIC_AWS_COGNITO_DOMAIN;
+        const clientId = process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID;
+        
+        if (!cognitoDomain || !clientId) {
+          console.error("Missing required environment variables for Cognito SSO");
+          router.push("/auth/signin");
+          return;
+        }
 
-        url.searchParams.set(
-          "client_id",
-          process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID ?? ""
-        );
+        const url = new URL(`https://${cognitoDomain}/oauth2/authorize`);
+
+        url.searchParams.set("client_id", clientId);
         url.searchParams.set("response_type", "code");
         url.searchParams.set(
           "scope",
