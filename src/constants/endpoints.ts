@@ -1,5 +1,5 @@
-const BASE_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
-const BASE_URL_WS = process.env.NEXT_PUBLIC_BASE_URL_WS;
+const BASE_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL || "https://placeholder-api-url.com";
+const BASE_URL_WS = process.env.NEXT_PUBLIC_BASE_URL_WS || "wss://placeholder-ws-url.com";
 // Enterprise Search Django API Routes
 export const DJANGO_API_ROUTES = {
   INGEST: `${BASE_URL}/ingest`,

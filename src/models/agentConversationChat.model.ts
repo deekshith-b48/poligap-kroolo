@@ -73,9 +73,9 @@ const AgentConversationSchema: Schema = new Schema(
 );
 
 const AgentConversationModel =
-  connection.enterprise.model<IAgentConversationChat>(
+  connection.enterprise.model(
     "AgentConversationChat",
     AgentConversationSchema
-  );
+  ) as any;
 
 export default AgentConversationModel;

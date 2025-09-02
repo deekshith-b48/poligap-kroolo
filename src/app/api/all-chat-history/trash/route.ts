@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await Promise.all(
-      conversations.map(async (conversation) => {
+      conversations.map(async (conversation: any) => {
         const user = await User.findById(conversation?.enterpriseUserId).select(
           "name email profileImage"
         );

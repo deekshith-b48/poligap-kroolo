@@ -120,7 +120,7 @@ export default function Component() {
   // Helper to get unique values for a given filter category
   function getUniqueFilterValues(category: string) {
     const values = new Set<string>();
-    teamMembers.forEach((member) => {
+    teamMembers.forEach((member: any) => {
       switch (category) {
         case "Status":
           if (member.status) values.add(member.status);
@@ -156,7 +156,7 @@ export default function Component() {
   }
 
   // Filtered people based on search and filter dropdown
-  const filteredPeople = teamMembers.filter((person) => {
+  const filteredPeople = teamMembers.filter((person: any) => {
     const matchesSearch = person.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
@@ -197,7 +197,7 @@ export default function Component() {
 
   // Dynamic user counts
   const totalUsers = teamMembers.length;
-  const activeUsers = teamMembers.filter((m) => m.status === "ACTIVE").length;
+  const activeUsers = teamMembers.filter((m: any) => m.status === "ACTIVE").length;
 
   // Sorting logic
   const sortedPeople = useMemo(() => {

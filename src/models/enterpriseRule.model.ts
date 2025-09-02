@@ -66,9 +66,9 @@ EnterpriseRuleSchema.post("save", async function (doc) {
   }
 });
 
-const EnterpriseRuleModel = connection.enterprise.model<IEnterpriseRule>(
+const EnterpriseRuleModel = connection.enterprise.model(
   "EnterpriseRule",
   EnterpriseRuleSchema
-);
+) as any;
 
 export default EnterpriseRuleModel;

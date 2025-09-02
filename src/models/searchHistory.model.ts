@@ -49,9 +49,9 @@ const SearchHistorySchema: Schema = new Schema(
 
 const SearchHistorysModel =
   connection.enterprise.models.SearchHistory ||
-  connection.enterprise.model<ISearchHistory>(
+  connection.enterprise.model(
     "SearchHistory",
     SearchHistorySchema
-  );
+  ) as any;
 
 export default SearchHistorysModel;

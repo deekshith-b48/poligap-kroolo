@@ -1,11 +1,14 @@
 import { createApiResponse } from "@/lib/apiResponse";
 import AgentConversationChat from "@/models/agentConversationChat.model";
 import AgentConversation from "@/models/agentConversation.model";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 import mongoose from "mongoose";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
+    // Initialize database connection
+    await ensureDatabaseConnection();
     const conversationId = request.nextUrl.searchParams.get("conversationId");
 
     if (!conversationId) {

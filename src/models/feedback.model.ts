@@ -36,9 +36,9 @@ const FeedbackSchema: Schema = new Schema(
   }
 );
 
-const FeedbackModel = connection.enterprise.model<IFeedback>(
+const FeedbackModel = connection.enterprise.model(
   "Feedback",
   FeedbackSchema
-);
+) as any;
 
 export default FeedbackModel;

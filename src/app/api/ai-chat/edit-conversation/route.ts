@@ -1,9 +1,12 @@
 import { createApiResponse } from "@/lib/apiResponse";
 import AgentConversation from "@/models/agentConversation.model";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize database connection
+    await ensureDatabaseConnection();
     const {
       conversationId,
       chatName,

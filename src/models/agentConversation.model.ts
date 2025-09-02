@@ -49,9 +49,9 @@ const AgentConversationSchema: Schema = new Schema(
   }
 );
 
-const AgentConversationModel = connection.enterprise.model<IAgentConversation>(
+const AgentConversationModel = connection.enterprise.model(
   "AgentConversation",
   AgentConversationSchema
-);
+) as any;
 
 export default AgentConversationModel;

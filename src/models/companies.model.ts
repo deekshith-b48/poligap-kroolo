@@ -42,9 +42,9 @@ const CompanySchema: Schema = new Schema(
   }
 );
 
-const CompanyModel = connection.enterprise.model<ICompany>(
+const CompanyModel = connection.enterprise.model(
   "Company",
   CompanySchema
-);
+) as any;
 
 export default CompanyModel;

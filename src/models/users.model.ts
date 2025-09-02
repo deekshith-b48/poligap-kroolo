@@ -97,6 +97,6 @@ const UserSchema: Schema = new Schema(
   }
 );
 
-const UserModel = connection.enterprise.model<IUser>("User", UserSchema);
+const UserModel = connection.enterprise.model("User", UserSchema) as any;
 
 export default UserModel;

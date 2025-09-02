@@ -39,6 +39,11 @@ export const useCompanyStore = create<CompanyStore>()(
 
       SsoLoginApi: async (email: string): Promise<ErrorResponse | null> => {
         try {
+          // Check if we're in a browser environment
+          if (typeof window === 'undefined') {
+            throw new Error('SsoLoginApi can only be called in browser environment');
+          }
+          
           const urlObject = new URL(window.location.href);
           const url = urlObject.origin + "/login/sso/callback";
           const encodedUrl = btoa(url);

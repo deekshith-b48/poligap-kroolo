@@ -195,14 +195,14 @@ export async function getUserEnterpriseIntegration(
 
     // 3. Create a map for fast lookup of user integrations by platformId
     const integrationMap = new Map(
-      userIntegrations.map((integration) => [
+      userIntegrations.map((integration: any) => [
         integration.platformId.toString(),
         integration,
       ])
     );
 
     // 4. Merge platform data with user integration if exists
-    const result = integrationPlatforms.map((platform) => {
+    const result = integrationPlatforms.map((platform: any) => {
       const matchedIntegration = integrationMap.get(
         platform._id?.toString() || ""
       );
@@ -368,7 +368,7 @@ export async function importCompanies(companies: any[], token: string) {
       _id: { $in: companyIds },
     }).select("_id");
 
-    const existingIds = new Set(existingCompanies.map((c) => String(c._id)));
+    const existingIds = new Set(existingCompanies.map((c: any) => String(c._id)));
 
     // instead of only IDs, keep the full company objects that are missing
     const missingCompanies = companies.filter(
@@ -650,7 +650,7 @@ export async function getCompanyList(userId: string) {
       };
     }
 
-    const companies = companyList.map((item) => ({
+    const companies = companyList.map((item: any) => ({
       role: item.role,
       companyName: (item.companyId as { name?: string })?.name || "",
       companyId:
@@ -810,7 +810,7 @@ export async function getMembersList(companyId: string) {
 
       {
         $addFields: {
-          integrations: currentActiveIntegrations.map((integration) => ({
+          integrations: currentActiveIntegrations.map((integration: any) => ({
             imageUrl: integration.imageUrl,
             name: integration.name,
             userStatus: {
@@ -1151,15 +1151,15 @@ export async function getCompanies(userId: string) {
 
     const companies = await Company.find({
       companyId: {
-        $in: memberCompanies.map((company) => company.companyId),
+        $in: memberCompanies.map((company: any) => company.companyId),
       },
     })
       .select("name companyId ")
       .lean();
 
-    const formattedCompanies = memberCompanies.map((memberCompany) => {
+    const formattedCompanies = memberCompanies.map((memberCompany: any) => {
       const company = companies.find(
-        (c) => c.companyId.toString() === memberCompany.companyId.toString()
+        (c: any) => c.companyId.toString() === memberCompany.companyId.toString()
       );
       return {
         role: memberCompany.role,

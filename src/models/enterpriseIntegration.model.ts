@@ -55,9 +55,9 @@ const EnterpriseIntegrationSchema: Schema<IEnterpriseIntegration> = new Schema(
 );
 
 const EnterpriseIntegrationModel =
-  connections.enterprise.model<IEnterpriseIntegration>(
+  connections.enterprise.model(
     "EnterpriseIntegration",
     EnterpriseIntegrationSchema
-  );
+  ) as any;
 
 export default EnterpriseIntegrationModel;

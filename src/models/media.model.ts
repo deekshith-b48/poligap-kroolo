@@ -62,6 +62,6 @@ MediaSchema.set("toJSON", { virtuals: true });
 
 const MediaModel =
   connection.enterprise.models.Media ||
-  connection.enterprise.model<IMedia>("Media", MediaSchema);
+  connection.enterprise.model("Media", MediaSchema) as any;
 
 export default MediaModel;

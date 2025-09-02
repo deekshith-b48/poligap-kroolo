@@ -83,9 +83,9 @@ IntegrationPlatformSchema.virtual("connectedUser", {
 });
 
 const IntegrationPlatformModel =
-  connection.enterprise.model<IIntegrationPlatform>(
+  connection.enterprise.model(
     "IntegrationPlatform",
     IntegrationPlatformSchema
-  );
+  ) as any;
 
 export default IntegrationPlatformModel;

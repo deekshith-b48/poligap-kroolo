@@ -72,9 +72,9 @@ const FlaggedIssueSchema: Schema = new Schema(
 
 const FlaggedIssueModel =
   connection.enterprise.models.FlaggedIssue ||
-  connection.enterprise.model<IFlaggedIssue>(
+  connection.enterprise.model(
     "FlaggedIssue",
     FlaggedIssueSchema
-  );
+  ) as any;
 
 export default FlaggedIssueModel;

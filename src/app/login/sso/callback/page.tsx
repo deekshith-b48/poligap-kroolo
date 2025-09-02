@@ -13,6 +13,9 @@ const SsoCallbackComponent = dynamic(() => import('./SsoCallbackComponent'), {
   )
 });
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';
+
 export default function SsoCallbackPage() {
   return <SsoCallbackComponent />;
 }

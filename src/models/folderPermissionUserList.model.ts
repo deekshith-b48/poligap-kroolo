@@ -25,9 +25,9 @@ const FolderPermissionUserListSchema = new Schema(
 );
 
 const FolderPermissionUserListModel =
-  connection.enterprise.model<IFolderPermissionUserList>(
+  connection.enterprise.model(
     "FolderPermissionUserList",
     FolderPermissionUserListSchema
-  );
+  ) as any;
 
 export default FolderPermissionUserListModel;

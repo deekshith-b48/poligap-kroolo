@@ -16,13 +16,27 @@ interface DecodedToken {
 
 export default function SsoCallbackComponent() {
   const [isClient, setIsClient] = useState(false);
-  const authInfo = useAuthInfo();
+  const [authInfo, setAuthInfo] = useState<any>(null);
   const router = useRouter();
 
   // Ensure this only runs on the client side
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Safely get auth info only on client side
+  let clientAuthInfo = null;
+  try {
+    clientAuthInfo = isClient ? useAuthInfo() : null;
+  } catch (error) {
+    console.log("Auth provider not available, continuing without auth info");
+  }
+
+  useEffect(() => {
+    if (isClient) {
+      setAuthInfo(clientAuthInfo);
+    }
+  }, [isClient, clientAuthInfo]);
 
   useEffect(() => {
     // Only run this effect on the client side

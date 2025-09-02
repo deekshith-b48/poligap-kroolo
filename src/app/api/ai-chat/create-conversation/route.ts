@@ -2,10 +2,13 @@ import AgentConversation from "@/models/agentConversation.model";
 import mongoose from "mongoose";
 import User from "@/models/users.model";
 import { createApiResponse } from "@/lib/apiResponse";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize database connection
+    await ensureDatabaseConnection();
     const { userId, companyId } = await request.json();
     console.log("userId and companyId =>", userId, companyId);
 

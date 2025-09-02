@@ -20,6 +20,9 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import LoginSidePanel from "@/components/common/sso-login-side-panel";
 
+// Force dynamic rendering to prevent build-time issues
+export const dynamic = 'force-dynamic';
+
 export default function SsoLogin() {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();

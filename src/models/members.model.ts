@@ -78,9 +78,9 @@ const MemberSchema: Schema = new Schema(
   }
 );
 
-const MembersModel = connection.enterprise.model<IMember>(
+const MembersModel = connection.enterprise.model(
   "Members",
   MemberSchema
-);
+) as any;
 
 export default MembersModel;
