@@ -5,6 +5,10 @@ import { createApiResponse } from "@/lib/apiResponse";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
 import { NextRequest } from "next/server";
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     // Initialize database connection

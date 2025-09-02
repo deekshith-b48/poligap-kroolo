@@ -3,6 +3,10 @@ import FeedbackModel from "@/models/feedback.model";
 import { createApiResponse } from "@/lib/apiResponse";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     // Initialize database connection

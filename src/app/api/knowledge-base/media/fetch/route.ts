@@ -4,6 +4,10 @@ import { createApiResponse } from "@/lib/apiResponse";
 import Media from "@/models/media.model";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 /**
  * GET /api/company/knowledge-base-media
  *

@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(req: NextRequest) {
   try {
     // Ensure database connection

@@ -5,6 +5,10 @@ import Media from "@/models/media.model";
 import Company from "@/models/companies.model";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 /**
  * DELETE /api/media/delete
  * Body: { companyId: string, mediaId: string }
