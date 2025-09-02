@@ -109,7 +109,13 @@ export const streamGeneration = async (
     const accessToken = userSession
       ? JSON.parse(userSession)?.AccessToken
       : undefined;
-    const url = `${process.env.NEXT_PUBLIC_REACT_APP_API_URL}/kroolo-ai/chat-with-ai`;
+    
+    const baseUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL;
+    if (!baseUrl) {
+      throw new Error("API URL not configured. Please check environment variables.");
+    }
+    
+    const url = `${baseUrl}/kroolo-ai/chat-with-ai`;
     const options = {
       method: "POST",
       headers: {
@@ -136,8 +142,12 @@ export const streamGenerationGLobalChat = async (
   signal: AbortSignal
 ) => {
   try {
-    const url =
-      process.env.NEXT_PUBLIC_REACT_APP_API_URL_KROOLO_AI + "/global-chat";
+    const baseUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL_KROOLO_AI;
+    if (!baseUrl) {
+      throw new Error("Kroolo AI API URL not configured. Please check environment variables.");
+    }
+    
+    const url = `${baseUrl}/global-chat`;
     const options = {
       method: "POST",
       headers: {

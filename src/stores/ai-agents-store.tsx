@@ -147,8 +147,13 @@ export const streamGenerationAgentContent = async (
   fromCreated = false
 ): Promise<void> => {
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL_KROOLO_AI;
+    if (!baseUrl) {
+      throw new Error("Kroolo AI API URL not configured. Please check environment variables.");
+    }
+    
     const route = fromCreated ? "/agent" : "/ai-agent";
-    const url = `${process.env.NEXT_PUBLIC_API_URL_KROOLO_AI}${route}`;
+    const url = `${baseUrl}${route}`;
     const options: RequestInit = {
       method: "POST",
       // headers: {
@@ -171,7 +176,12 @@ export const clearAgentMemory = async (
   requestData: RequestData
 ): Promise<void> => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_URL_KROOLO_AI}/clear-agent-history`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL_KROOLO_AI;
+    if (!baseUrl) {
+      throw new Error("Kroolo AI API URL not configured. Please check environment variables.");
+    }
+    
+    const url = `${baseUrl}/clear-agent-history`;
     const options: RequestInit = {
       method: "POST",
       headers: {
@@ -190,7 +200,12 @@ export const deleteMediaEmbedding = async (
   requestData: RequestData
 ): Promise<void> => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_URL_KROOLO_AI}/delete-agent-embeddings`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL_KROOLO_AI;
+    if (!baseUrl) {
+      throw new Error("Kroolo AI API URL not configured. Please check environment variables.");
+    }
+    
+    const url = `${baseUrl}/delete-agent-embeddings`;
     const options: RequestInit = {
       method: "POST",
       headers: {
@@ -209,7 +224,12 @@ export const generateAIAgentChatProject = async (
   requestData: RequestData
 ): Promise<any> => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_URL_KROOLO_AI}/agent-project-gen-custom-column`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL_KROOLO_AI;
+    if (!baseUrl) {
+      throw new Error("Kroolo AI API URL not configured. Please check environment variables.");
+    }
+    
+    const url = `${baseUrl}/agent-project-gen-custom-column`;
     const options: RequestInit = {
       method: "POST",
       headers: {
@@ -261,8 +281,13 @@ export const extractContentAPI = async (
   requestData: RequestData
 ): Promise<Response | Error> => {
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL_KROOLO_AI;
+    if (!baseUrl) {
+      throw new Error("Kroolo AI API URL not configured. Please check environment variables.");
+    }
+    
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL_KROOLO_AI}/extract-file-data`,
+      `${baseUrl}/extract-file-data`,
       {
         method: "POST",
         headers: {
