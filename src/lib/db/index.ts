@@ -64,16 +64,23 @@ export const initializeConnection = () => Promise.all([connectDBEnterprise()]);
 const connections = {
   get enterprise() {
     if (!enterpriseConnection) {
-      // For build time, return a mock connection to prevent errors
-      if (!process.env.MONGODB_ENTERPRISE_SEARCH_URI) {
+      // For build time or when no connection is available, return a mock connection to prevent errors
+      // Check if we're in a build context (Next.js build process)
+      const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                         process.env.NODE_ENV === 'production' && !process.env.VERCEL_ENV ||
+                         !process.env.MONGODB_ENTERPRISE_SEARCH_URI;
+      
+      if (isBuildTime) {
         console.warn('Database connection not available during build time - using mock connection');
         // Return a mock connection that won't cause build errors
         return {
-          model: () => ({
+          model: (name: string) => ({
             findOne: () => Promise.resolve(null),
             find: () => Promise.resolve([]),
             create: () => Promise.resolve({}),
             save: () => Promise.resolve({}),
+            findById: () => Promise.resolve(null),
+            findByIdAndUpdate: () => Promise.resolve(null),
             insertOne: () => Promise.resolve({ insertedId: 'mock' }),
             collection: () => ({
               insertOne: () => Promise.resolve({ insertedId: 'mock' })
