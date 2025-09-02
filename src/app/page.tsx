@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getCompanies } from "./api/enterpriseSearch/enterpriseSearch";
 import { useCompanyStore } from "@/stores/company-store";
 
 export default function Home() {
@@ -19,10 +18,15 @@ export default function Home() {
 
     if (userId) {
       console.log("Fetching companies for user:", userId);
-      getCompanies(userId)
+      fetch("/api/companies", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      })
+        .then((res) => res.json())
         .then((res) => {
           console.log("API Response:", res);
-          if (res && res.code === 200 && Array.isArray(res.data)) {
+          if (res && res.success && Array.isArray(res.data)) {
             type RawCompany = {
               companyId: { toString: () => string };
               name: string;
