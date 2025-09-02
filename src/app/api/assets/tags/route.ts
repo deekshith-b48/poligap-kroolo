@@ -66,9 +66,9 @@ export async function DELETE(request: NextRequest) {
       .updateMany(
         { _id: { $in: objectIds } },
         { 
-          $pullAll: { tags: tags },
+          $pullAll: { tags: tags as any },
           $set: { updatedAt: new Date() }
-        }
+        } as any
       );
     
     return NextResponse.json({

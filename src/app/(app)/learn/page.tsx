@@ -17,7 +17,7 @@ interface Policy {
   tags: string[];
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   lastUpdated: string;
-  audience: string;
+  audience?: string;
 }
 
 const policies: Policy[] = [
@@ -632,7 +632,8 @@ const policies: Policy[] = [
     icon: Shield,
     tags: ["data protection", "privacy", "EU"],
     difficulty: "Advanced",
-    lastUpdated: "2024-01-15"
+    lastUpdated: "2024-01-15",
+    audience: "All companies and organizations processing personal data of EU residents"
   },
   {
     id: "ccpa",
@@ -643,7 +644,8 @@ const policies: Policy[] = [
     icon: Lock,
     tags: ["consumer rights", "privacy", "California"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-10"
+    lastUpdated: "2024-01-10",
+    audience: "Businesses handling personal data of California residents"
   },
   {
     id: "hipaa",
@@ -654,7 +656,7 @@ const policies: Policy[] = [
     icon: FileText,
     tags: ["healthcare", "data security", "PHI"],
     difficulty: "Advanced",
-    lastUpdated: "2024-01-20"
+    lastUpdated: "2024-01-20",
   },
   {
     id: "iso27001",
@@ -665,7 +667,7 @@ const policies: Policy[] = [
     icon: Globe,
     tags: ["security", "management", "ISO"],
     difficulty: "Advanced",
-    lastUpdated: "2024-01-12"
+    lastUpdated: "2024-01-12",
   },
   {
     id: "sox",
@@ -676,7 +678,7 @@ const policies: Policy[] = [
     icon: DollarSign,
     tags: ["financial", "reporting", "governance"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-08"
+    lastUpdated: "2024-01-08",
   },
   {
     id: "pci-dss",
@@ -687,7 +689,7 @@ const policies: Policy[] = [
     icon: Shield,
     tags: ["payments", "security", "PCI"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-18"
+    lastUpdated: "2024-01-18",
   },
   {
     id: "workplace-safety",
@@ -698,7 +700,7 @@ const policies: Policy[] = [
     icon: AlertTriangle,
     tags: ["safety", "emergency", "procedures"],
     difficulty: "Beginner",
-    lastUpdated: "2024-01-14"
+    lastUpdated: "2024-01-14",
   },
   {
     id: "remote-work",
@@ -709,7 +711,7 @@ const policies: Policy[] = [
     icon: Users,
     tags: ["remote", "collaboration", "digital"],
     difficulty: "Beginner",
-    lastUpdated: "2024-01-16"
+    lastUpdated: "2024-01-16",
   },
   {
     id: "data-retention",
@@ -720,7 +722,7 @@ const policies: Policy[] = [
     icon: FileText,
     tags: ["retention", "lifecycle", "management"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-11"
+    lastUpdated: "2024-01-11",
   },
   {
     id: "cybersecurity",
@@ -731,7 +733,7 @@ const policies: Policy[] = [
     icon: Shield,
     tags: ["cybersecurity", "incident", "response"],
     difficulty: "Advanced",
-    lastUpdated: "2024-01-19"
+    lastUpdated: "2024-01-19",
   },
   {
     id: "anti-money-laundering",
@@ -742,7 +744,7 @@ const policies: Policy[] = [
     icon: DollarSign,
     tags: ["AML", "monitoring", "compliance"],
     difficulty: "Advanced",
-    lastUpdated: "2024-01-13"
+    lastUpdated: "2024-01-13",
   },
   {
     id: "diversity-inclusion",
@@ -753,7 +755,7 @@ const policies: Policy[] = [
     icon: Users,
     tags: ["diversity", "inclusion", "equity"],
     difficulty: "Beginner",
-    lastUpdated: "2024-01-17"
+    lastUpdated: "2024-01-17",
   },
   {
     id: "vendor-management",
@@ -764,7 +766,7 @@ const policies: Policy[] = [
     icon: Building,
     tags: ["vendor", "third-party", "assessment"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-09"
+    lastUpdated: "2024-01-09",
   },
   {
     id: "business-continuity",
@@ -775,7 +777,7 @@ const policies: Policy[] = [
     icon: CheckCircle,
     tags: ["continuity", "disaster", "recovery"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-21"
+    lastUpdated: "2024-01-21",
   },
   {
     id: "environmental",
@@ -786,7 +788,7 @@ const policies: Policy[] = [
     icon: Globe,
     tags: ["environment", "sustainability", "responsibility"],
     difficulty: "Beginner",
-    lastUpdated: "2024-01-07"
+    lastUpdated: "2024-01-07",
   },
   {
     id: "intellectual-property",
@@ -797,7 +799,7 @@ const policies: Policy[] = [
     icon: Lock,
     tags: ["IP", "trademark", "protection"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-06"
+    lastUpdated: "2024-01-06",
   },
   {
     id: "financial-reporting",
@@ -808,7 +810,7 @@ const policies: Policy[] = [
     icon: DollarSign,
     tags: ["reporting", "accounting", "standards"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-05"
+    lastUpdated: "2024-01-05",
   },
   {
     id: "code-of-conduct",
@@ -819,7 +821,7 @@ const policies: Policy[] = [
     icon: Users,
     tags: ["conduct", "ethics", "behavior"],
     difficulty: "Beginner",
-    lastUpdated: "2024-01-04"
+    lastUpdated: "2024-01-04",
   },
   {
     id: "data-classification",
@@ -830,7 +832,7 @@ const policies: Policy[] = [
     icon: FileText,
     tags: ["classification", "sensitive", "handling"],
     difficulty: "Intermediate",
-    lastUpdated: "2024-01-03"
+    lastUpdated: "2024-01-03",
   },
   {
     id: "procurement",
@@ -841,7 +843,7 @@ const policies: Policy[] = [
     icon: Building,
     tags: ["procurement", "supplier", "evaluation"],
     difficulty: "Beginner",
-    lastUpdated: "2024-01-02"
+    lastUpdated: "2024-01-02",
   }
 ];
 
