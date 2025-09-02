@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { createApiResponse } from "@/lib/apiResponse";
 import Media from "@/models/media.model";
 import Company from "@/models/companies.model";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 
 /**
  * DELETE /api/media/delete
@@ -13,6 +14,9 @@ import Company from "@/models/companies.model";
  */
 export async function DELETE(request: NextRequest) {
   try {
+    // Ensure database connection
+    await ensureDatabaseConnection();
+    
     const { companyId, mediaId } = await request.json();
 
     // Validate required fields

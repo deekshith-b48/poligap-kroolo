@@ -1,9 +1,13 @@
 import { createApiResponse } from "@/lib/apiResponse";
 import { NextRequest } from "next/server";
 import AgentConversation from "@/models/agentConversation.model";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 
 export async function DELETE(request: NextRequest) {
   try {
+    // Ensure database connection
+    await ensureDatabaseConnection();
+    
     const conversationId = request.nextUrl.searchParams.get("conversationId");
 
     if (!conversationId) {

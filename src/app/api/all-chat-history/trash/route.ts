@@ -3,9 +3,13 @@ import AgentConversation from "@/models/agentConversation.model";
 import User from "@/models/users.model";
 import mongoose from "mongoose";
 import { NextRequest } from "next/server";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 
 export async function GET(request: NextRequest) {
   try {
+    // Ensure database connection
+    await ensureDatabaseConnection();
+    
     const companyId = request.nextUrl.searchParams.get("companyId");
 
     if (!companyId) {
