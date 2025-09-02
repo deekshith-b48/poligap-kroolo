@@ -22,7 +22,8 @@ const eslintConfig = [
       "@next/next/no-assign-module-variable": "off",
       "@next/next/no-img-element": "off",
       "react/no-unescaped-entities": "off",
-      "react-hooks/exhaustive-deps": "warn",
+      // Make these warnings instead of errors for production builds
+      "react-hooks/exhaustive-deps": process.env.NODE_ENV === "production" ? "warn" : "error",
       "jsx-a11y/alt-text": "warn",
       "prefer-const": "warn",
     },
