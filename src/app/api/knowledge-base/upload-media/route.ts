@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { createApiResponse } from "@/lib/apiResponse";
 import Media from "@/models/media.model";
 import Company from "@/models/companies.model";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 
 /**
  * Uploads media file to knowledge base and associates it with a company.
@@ -64,6 +65,9 @@ async function uploadKnowledgeBaseMedia(
  */
 export async function POST(request: NextRequest) {
   try {
+    // Ensure database connection
+    await ensureDatabaseConnection();
+    
     const body = await request.json();
     const { companyId, userId, mediaData } = body;
 

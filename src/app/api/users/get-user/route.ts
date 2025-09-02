@@ -1,9 +1,13 @@
 import User from "@/models/users.model";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 
 export async function POST(req: NextRequest) {
   try {
+    // Ensure database connection
+    await ensureDatabaseConnection();
+    
     const { userId } = await req.json();
 
     const user = await User.findOne({

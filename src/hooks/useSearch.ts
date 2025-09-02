@@ -100,7 +100,7 @@ export const useSearch = (query: string) => {
   const userEmail = userData?.email || "";
   const isEnabled = integrationStore.isEnabled;
   
-  // Simple useMemo for stable references
+  // Simple useMemo for stable references  
   const stableAccounts = useMemo(
     () => account_ids,
     [account_ids]
@@ -118,15 +118,15 @@ export const useSearch = (query: string) => {
       userEmail,
       external_user_id,
       stableAccounts,
-      apps,
+      stableApps,
       isEnabled,
     ],
     queryFn: () =>
-      fetchSearch(query, userEmail, external_user_id, account_ids, apps),
+      fetchSearch(query, userEmail, external_user_id, stableAccounts, stableApps),
     enabled: Boolean(
       query?.trim() &&
-        account_ids?.length &&
-        apps?.length &&
+        stableAccounts?.length &&
+        stableApps?.length &&
         userEmail &&
         external_user_id
     ),

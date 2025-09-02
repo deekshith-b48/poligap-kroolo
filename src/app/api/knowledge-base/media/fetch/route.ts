@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import mongoose from "mongoose";
 import { createApiResponse } from "@/lib/apiResponse";
 import Media from "@/models/media.model";
+import { ensureDatabaseConnection } from "@/lib/db-utils";
 
 /**
  * GET /api/company/knowledge-base-media
@@ -46,6 +47,9 @@ import Media from "@/models/media.model";
  */
 export async function GET(request: NextRequest) {
   try {
+    // Ensure database connection
+    await ensureDatabaseConnection();
+    
     const url = request.nextUrl;
     const companyId = url.searchParams.get("companyId");
     const group = url.searchParams.get("group") || "other";

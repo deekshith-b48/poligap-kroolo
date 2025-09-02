@@ -40,6 +40,7 @@ const PolicyPDFDocument: React.FC<PolicyPDFDocumentProps> = ({ markdown, logo })
     <Page size="A4" style={styles.page}>
       {logo && (
         <View style={styles.logoContainer}>
+          {/* PDF Image component doesn't support alt prop */}
           {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image src={logo} style={styles.logo} />
         </View>
