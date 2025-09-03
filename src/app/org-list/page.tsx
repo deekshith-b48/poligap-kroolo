@@ -3,12 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  isCompanyExist,
-  importCompanies,
-  validateUser,
-  addUser,
-} from "@/app/api/enterpriseSearch/enterpriseSearch";
+// Removed enterprise search imports - using direct API calls instead
 import { toastInfo } from "@/components/toast-varients";
 import { Button } from "@/components/ui/button";
 import LoginSidePanel from "@/components/common/sso-login-side-panel";
@@ -109,9 +104,11 @@ export default function OrgListPage() {
 
     setIsLoading(true);
     try {
-      const existsResp = await isCompanyExist(selectedCompany.companyId);
+      // Check if company exists
+      const existsResp = await fetch(`/api/companies/check-exists?companyId=${selectedCompany.companyId}`);
+      const existsData = await existsResp.json();
 
-      if (existsResp.code !== 200) {
+      if (existsData.code !== 200) {
         // company doesn't exist: owner can import
         if (
           selectedCompany.role === "Owner" ||
@@ -130,10 +127,17 @@ export default function OrgListPage() {
           );
           const userDetailsData = await userDetailsRes.json();
           console.log("userDetailsData ==> 🔥", userDetailsData);
-          await importCompanies(
-            userDetailsData.data.companies,
-            accessToken || ""
-          );
+          // Import companies
+          await fetch("/api/companies/import", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({
+              companies: userDetailsData.data.companies,
+            }),
+          });
           // Set the selected company in the store before redirecting
           setSelectedCompany({
             companyId: selectedCompany.companyId,
@@ -201,8 +205,10 @@ export default function OrgListPage() {
         }
       } else {
         // company exists: validate user
-        const validateUserResp = await validateUser(userId);
-        if (validateUserResp.code === 200) {
+        // Validate user
+        const validateUserResp = await fetch(`/api/users/validate?userId=${userId}`);
+        const validateUserData = await validateUserResp.json();
+        if (validateUserData.code === 200) {
           // Set the selected company in the store before redirecting
           setSelectedCompany({
             companyId: selectedCompany.companyId,
@@ -272,11 +278,18 @@ export default function OrgListPage() {
             }
           );
           const userDetailsJson = await userDetailsResp.json();
-          await addUser(
-            userId,
-            userDetailsJson.data,
-            selectedCompany.companyId
-          );
+          // Add user
+          await fetch("/api/users/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId,
+              userDetails: userDetailsJson.data,
+              companyId: selectedCompany.companyId,
+            }),
+          });
           // Set the selected company in the store before redirecting
           setSelectedCompany({
             companyId: selectedCompany.companyId,

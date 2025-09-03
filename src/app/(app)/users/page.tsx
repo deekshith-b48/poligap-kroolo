@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 
 import { useCompanyStore } from "@/stores/company-store";
-import { useUserStore } from "@/stores/user-store";
+// Removed useUserStore import - using localStorage instead
 import { useMember } from "@/hooks/useMember";
 import {
   Table,
@@ -106,7 +106,29 @@ export default function Component() {
   const selectedCompany = useCompanyStore((s) => s.selectedCompany);
   const companyId = selectedCompany?.companyId;
   const currentUserRole = selectedCompany?.role;
-  const { userData } = useUserStore();
+  // Get user data from localStorage instead of user store
+  const [userData, setUserData] = useState<any>(null);
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem("user_id");
+      if (!userId) return;
+      
+      try {
+        const response = await fetch(`/api/users/user-details?userId=${userId}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.success) {
+            setUserData(data.data);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+    
+    fetchUserData();
+  }, []);
 
   const {
     data: teamMembers = [],

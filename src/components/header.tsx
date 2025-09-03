@@ -3,7 +3,7 @@ import { PiMoonStars, PiSun } from "react-icons/pi";
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { useUserStore } from "@/stores/user-store";
+// Removed useUserStore import - using localStorage instead
 import { useAuthStore } from "@/stores/auth-store";
 
 import { Button } from "@/components/ui/button";
@@ -26,13 +26,13 @@ export function Header() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [storedId, setStoredId] = useState<string | null>(null);
-  const { setUserData, clearUserData } = useUserStore();
+  // Removed useUserStore - using localStorage instead
   const { logout: authLogout } = useAuthStore();
   const { setCompanies, setSelectedCompany } = useCompanyStore();
   const selectedCompany = useCompanyStore((s) => s.selectedCompany);
 
-  // Get user data from user store
-  const { userData } = useUserStore();
+  // Get user data from localStorage and API instead of user store
+  const [userData, setUserData] = useState<any>(null);
   const profilePictureUrl = userData?.profileImage;
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export function Header() {
       };
       setUserData(fixedData);
     }
-  }, [data, setUserData, storedId]);
+  }, [data, storedId]);
 
   const toggleTheme = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
@@ -87,7 +87,7 @@ export function Header() {
     await fetch("/api/users/signout", { method: "POST" });
 
     // Clear all stores
-    clearUserData();
+    setUserData(null);
     authLogout();
     setCompanies([]);
     setSelectedCompany({ companyId: "", name: "", role: "" });

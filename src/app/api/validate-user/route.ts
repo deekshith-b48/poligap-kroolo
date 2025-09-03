@@ -1,6 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
-import { validateUser } from "@/app/api/enterpriseSearch/enterpriseSearch";
+// Removed enterprise search import - implementing validateUser directly
+
+// Implement validateUser function directly
+async function validateUser(userId: string) {
+  try {
+    const db = await ensureDatabaseConnection();
+    const user = await db.collection('users').findOne({ userId });
+    
+    if (user) {
+      return {
+        code: 200,
+        data: user,
+        message: "User validated successfully"
+      };
+    } else {
+      return {
+        code: 404,
+        data: null,
+        message: "User not found"
+      };
+    }
+  } catch (error) {
+    console.error("Error in validateUser:", error);
+    return {
+      code: 500,
+      data: null,
+      message: "Failed to validate user"
+    };
+  }
+}
 
 // Force dynamic rendering for this API route
 export const dynamic = 'force-dynamic';

@@ -9,7 +9,7 @@ import { LlmsList } from "../utils/utils";
 import { PlaygroundChatMessage } from "@/types/agent";
 // import { PlaygroundChatMessage } from "@/types/agent";
 import { useCompanyStore } from "@/stores/company-store";
-import { useUserStore } from "@/stores/user-store";
+// Removed useUserStore import - using localStorage instead
 
 // Utility function to group conversations by date
 export function groupConversationsByDate(
@@ -475,7 +475,7 @@ export const useGlobalChatStore = create((set: any) => ({
 
             (useGlobalChatStore.getState() as any).getConversationListsAPI(
               useCompanyStore.getState().selectedCompany?.companyId,
-              useUserStore.getState().userData?._id
+              typeof window !== "undefined" ? localStorage.getItem("user_id") : null
             );
           })
         );

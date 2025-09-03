@@ -1,6 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ensureDatabaseConnection } from "@/lib/db-utils";
-import { getCompanies } from "@/app/api/enterpriseSearch/enterpriseSearch";
+// Removed enterprise search import - implementing getCompanies directly
+
+// Implement getCompanies function directly
+async function getCompanies(userId: string) {
+  try {
+    const db = await ensureDatabaseConnection();
+    const companies = await db.collection('companies').find({ 
+      $or: [
+        { 'members.userId': userId },
+        { 'ownerId': userId }
+      ]
+    }).toArray();
+    
+    return {
+      code: 200,
+      data: companies,
+      message: "Companies retrieved successfully"
+    };
+  } catch (error) {
+    console.error("Error in getCompanies:", error);
+    return {
+      code: 500,
+      data: null,
+      message: "Failed to retrieve companies"
+    };
+  }
+}
 
 // Force dynamic rendering for this API route
 export const dynamic = 'force-dynamic';

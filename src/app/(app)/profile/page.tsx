@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Pencil, X, Save } from "lucide-react";
-import { useUserStore } from "@/stores/user-store";
+// Removed useUserStore import - using localStorage and API instead
 import { Input } from "@/components/ui/input";
 // Removed direct import of server-side function - using API route instead
 import { useEffect, useState, useRef } from "react";
@@ -13,14 +13,37 @@ import { Textarea } from "@/components/ui/textarea";
 import { getInitials } from "@/utils/user.util";
 
 export default function UserProfilePage() {
-  const { userData, setUserData } = useUserStore();
-  const [about, setAbout] = useState(userData?.about);
+  const [userData, setUserData] = useState<any>(null);
+  const [about, setAbout] = useState("");
 
   let bannerImage =
     "https://images.unsplash.com/photo-1554034483-04fda0d3507b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   if (userData?.banner?.image) {
     bannerImage = userData.banner.image;
   }
+
+  // Fetch user data on component mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem("user_id");
+      if (!userId) return;
+      
+      try {
+        const response = await fetch(`/api/users/user-details?userId=${userId}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.success) {
+            setUserData(data.data);
+            setAbout(data.data?.about || "");
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+    
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     if (!userData) return;

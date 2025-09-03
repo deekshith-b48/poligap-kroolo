@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 import RecentChatIcon from "@/assets/icons/doc-comment-icon.svg";
 import useGlobalChatStore from "./store/global-chat-store";
 import { useCompanyStore } from "@/stores/company-store";
-import { useUserStore } from "@/stores/user-store";
+// Removed useUserStore import - using localStorage instead
 
 const AgentChat = () => {
   const selectedCompany = useCompanyStore((s) => s.selectedCompany);
   const companyId = selectedCompany?.companyId;
-  const { userData } = useUserStore();
-  const userId = userData?.userId;
+  // Get userId from localStorage instead of user store
+  const userId = typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
 
   // recent chats
   const [isMobile, setIsMobile] = useState(false);

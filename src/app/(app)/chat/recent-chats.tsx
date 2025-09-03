@@ -10,7 +10,7 @@ import {
 import useGlobalChatStore from "./store/global-chat-store";
 import { PlaygroundChatMessage } from "@/types/agent";
 import { useCompanyStore } from "@/stores/company-store";
-import { useUserStore } from "@/stores/user-store";
+// Removed useUserStore import - using localStorage instead
 
 type Props = {
   isMobile: boolean;
@@ -61,7 +61,8 @@ const RecentChats = ({
     (state) => state.isLoadingFetchingConvoList
   );
 
-  const userId = useUserStore((s) => s.userData?.userId);
+  // Get userId from localStorage instead of user store
+  const userId = typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
 
   const selectedCompany = useCompanyStore((s) => s.selectedCompany);
   const companyId = selectedCompany?.companyId;
