@@ -196,7 +196,7 @@ export default function OrgListPage() {
           //   console.error("Error sending payload to FastAPI:", error);
           // }
 
-          router.push("/");
+          router.push("/my-tasks");
         } else {
           toastInfo(
             "You're not authorized to access from this organisation.",
@@ -267,7 +267,7 @@ export default function OrgListPage() {
           //   console.error("Error sending payload to FastAPI:", error);
           // }
 
-          router.push("/");
+          router.push("/my-tasks");
         } else {
           const userDetailsResp = await fetch(
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/enterprise-search/get-company-user-details/${selectedCompany.companyId}`,
@@ -296,7 +296,7 @@ export default function OrgListPage() {
             name: selectedCompany.companyName,
             role: selectedCompany.role,
           });
-          router.push("/");
+          router.push("/my-tasks");
         }
       }
     } catch (error) {

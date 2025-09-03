@@ -125,7 +125,7 @@ export default function SignInPage() {
         const userId = result.data.data.userData.userId;
         localStorage.setItem("user_id", userId);
 
-        router.push("/org-list");
+        router.push("/my-tasks");
       } else {
         toastError("Facing Some problem in signin.", "Please try again.");
       }

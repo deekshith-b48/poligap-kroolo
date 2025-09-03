@@ -25,7 +25,7 @@ export default function SsoCallbackComponent({ authUrl }: SsoCallbackComponentPr
       if (code && state) {
         // Process the SSO callback
         // This will be handled by PropelAuth automatically
-        router.push('/');
+        router.push('/my-tasks');
       } else {
         router.push('/login?error=sso_callback_failed');
       }
