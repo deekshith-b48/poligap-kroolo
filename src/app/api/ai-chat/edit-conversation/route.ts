@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const {
       conversationId,
       chatName,
-      summary = "Welcome to Kroolo-Enterprise Search",
+      summary = "Welcome to Poligap",
     } = await request.json();
 
     if (!conversationId || !chatName) {

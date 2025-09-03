@@ -157,12 +157,12 @@ export default function SignInPage() {
             <div className="space-y-2">
               <h1 className="text-xl font-semibold">
                 Welcome to{" "}
-                <span className="text-base-purple">Kroolo AI Search</span>
+                <span className="text-base-purple">Poligap</span>
               </h1>
               <p className="text-gray-700 dark:text-gray-300 text-xs leading-relaxed">
                 Unlock your team&apos;s knowledge base with AI-powered insights.
                 <br />
-                Let Kroolo AI Search help you find answers quickly and
+                Let Poligap help you analyze policies and manage tasks quickly and
                 effortlessly.
               </p>
             </div>
