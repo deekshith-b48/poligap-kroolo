@@ -1,11 +1,33 @@
 "use server";
-import EnterpriseIntegration from "@/models/enterpriseIntegration.model";
-import IntegrationPlatform from "@/models/integrationPlatform.model";
-import Company from "@/models/companies.model";
-import Member from "@/models/members.model";
-import User from "@/models/users.model";
-import SearchHistory, { ISearchHistory } from "@/models/searchHistory.model";
 import mongoose from "mongoose";
+
+// Dynamic imports for models to prevent database connection issues
+async function getModels() {
+  const [
+    EnterpriseIntegration,
+    IntegrationPlatform,
+    Company,
+    Member,
+    User,
+    SearchHistory
+  ] = await Promise.all([
+    import("@/models/enterpriseIntegration.model").then(m => m.default),
+    import("@/models/integrationPlatform.model").then(m => m.default),
+    import("@/models/companies.model").then(m => m.default),
+    import("@/models/members.model").then(m => m.default),
+    import("@/models/users.model").then(m => m.default),
+    import("@/models/searchHistory.model").then(m => m.default)
+  ]);
+  
+  return {
+    EnterpriseIntegration,
+    IntegrationPlatform,
+    Company,
+    Member,
+    User,
+    SearchHistory
+  };
+}
 
 // When Owner will connect to it's own integration
 export async function UserAuthenticated(
@@ -1136,6 +1158,8 @@ export async function isCompanyExist(companyId: string) {
 // Get all the companies of a user
 export async function getCompanies(userId: string) {
   try {
+    const { Member, Company } = await getModels();
+    
     const memberCompanies = await Member.find({
       userId: new mongoose.Types.ObjectId(userId),
     })
