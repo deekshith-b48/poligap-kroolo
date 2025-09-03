@@ -1,4 +1,3 @@
-import { getMembersList } from "@/app/api/enterpriseSearch/enterpriseSearch";
 import { useQuery } from "@tanstack/react-query";
 
 export type TeamMember = {
@@ -35,8 +34,17 @@ export type MemberResponse = {
 };
 
 const fetchMembers = async (companyId: string) => {
-  const response = await getMembersList(companyId);
-  return response;
+  const response = await fetch("/api/company/members/member-details", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ companyId }),
+  });
+  
+  if (!response.ok) {
+    throw new Error("Failed to fetch members");
+  }
+  
+  return response.json();
 };
 
 const useMember = (companyId: string) => {

@@ -1160,6 +1160,15 @@ export async function getCompanies(userId: string) {
   try {
     const { Member, Company } = await getModels();
     
+    // Validate ObjectId format
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return {
+        message: "Invalid userId format",
+        code: 400,
+        error: "userId must be a valid MongoDB ObjectId"
+      };
+    }
+    
     const memberCompanies = await Member.find({
       userId: new mongoose.Types.ObjectId(userId),
     })

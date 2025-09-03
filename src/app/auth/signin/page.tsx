@@ -17,7 +17,7 @@ import { toastError, toastInfo } from "@/components/toast-varients";
 import { cn } from "@/lib/utils";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { validateUser } from "@/app/api/enterpriseSearch/enterpriseSearch";
+// Removed direct import of server-side function
 import TermsAndPrivacyLinks from "@/components/common/term-and-privacy-link";
 import LoginSidePanel from "@/components/common/sso-login-side-panel";
 

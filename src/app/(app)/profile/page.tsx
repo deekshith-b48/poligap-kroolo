@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Pencil, X, Save } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { Input } from "@/components/ui/input";
-import { updateAbout } from "@/app/api/enterpriseSearch/enterpriseSearch";
+// Removed direct import of server-side function - using API route instead
 import { useEffect, useState, useRef } from "react";
 import { toastSuccess, toastError } from "@/components/toast-varients";
 import { uploadToS3 } from "@/app/api/s3/upload/uploadtos3";
@@ -247,7 +247,21 @@ export default function UserProfilePage() {
                   size={"sm"}
                   disabled={about === userData?.about}
                   onClick={async () => {
-                    const data = await updateAbout(userData?.userId, about!);
+                    const response = await fetch("/api/users/user-details", {
+                      method: "PUT",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ 
+                        userId: userData?.userId, 
+                        about: about 
+                      }),
+                    });
+                    
+                    if (!response.ok) {
+                      toastError("Failed to update bio");
+                      return;
+                    }
+                    
+                    const data = await response.json();
                     if (data?.code === 200) {
                       toastSuccess("Bio updated successfully!");
                       if (userData) {
